@@ -3,14 +3,14 @@ using UnityEditor;
 
 using UnityEngine;
 
-[CustomEditor(typeof(EnemyAi))]
+[CustomEditor(typeof(TESTAI))]
 
 public class NewBehaviourScript : Editor
 {
 
     private void OnSceneGUI()
     {
-        EnemyAi fov = (EnemyAi)target;
+        TESTAI fov = (TESTAI)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
 

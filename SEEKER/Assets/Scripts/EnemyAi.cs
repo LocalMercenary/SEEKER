@@ -27,9 +27,10 @@ public class EnemyAi : MonoBehaviour
     GameObject player;
     NavMeshAgent agent;
 
+    [Header ("wandering")]
     [SerializeField]
     bool wandering = true;
-
+    public float playerRadius;
 
     private void Start()
     {
@@ -65,7 +66,7 @@ public class EnemyAi : MonoBehaviour
         {
             Vector3 centerOfRadius = player.transform.position;
 
-            Vector3 target = centerOfRadius + (Vector3)(radius * UnityEngine.Random.insideUnitCircle);
+            Vector3 target = centerOfRadius + (Vector3)(playerRadius * UnityEngine.Random.insideUnitCircle);
         }
     }
 
