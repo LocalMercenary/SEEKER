@@ -3,14 +3,15 @@ using UnityEditor;
 
 using UnityEngine;
 
-[CustomEditor(typeof(TESTAI))]
+[CustomEditor(typeof(EnemyAi))]
 
 public class NewBehaviourScript : Editor
 {
 
     private void OnSceneGUI()
     {
-        TESTAI fov = (TESTAI)target;
+        EnemyAi fov = (EnemyAi)target;
+        
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
 
@@ -25,6 +26,12 @@ public class NewBehaviourScript : Editor
         {
             Handles.color = Color.green;
             Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+        }
+
+        if (fov.playerRef != null)
+        {
+            Handles.color = Color.cyan; // Change color for better visibility
+            Handles.DrawWireArc(fov.playerRef.transform.position, Vector3.up, Vector3.forward, 360, fov.playerRadius);
         }
     }
 
