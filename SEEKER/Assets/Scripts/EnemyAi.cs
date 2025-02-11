@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class FieldOfView : MonoBehaviour
+public class EnemyAi : MonoBehaviour
 {
+    [Header("FOV")]
     public float radius;
     [Range (0,360)]
     public float angle;
@@ -15,11 +17,59 @@ public class FieldOfView : MonoBehaviour
 
     public bool canSeePlayer;
 
+
+
+    [Header ("Movement")]
+    
+    [SerializeField]
+    bool sendHome = true;
+    Vector3 home;
+    GameObject player;
+    NavMeshAgent agent;
+
+    [SerializeField]
+    bool wandering = true;
+
+
     private void Start()
     {
+
+        //fov
         playerRef = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(FOVRoutine());
+
+        //movement
+        home = transform.position;
+        player = GameObject.FindGameObjectWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
     }
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (canSeePlayer && sendHome)
+        {
+            wandering = true;
+        }
+        //movement
+        Vector3 dir = player.transform.position - transform.position;
+        if (canSeePlayer && dir.magnitude < radius)
+        {
+            agent.destination = player.transform.position;
+        }
+        else if (sendHome == true)
+        {
+            agent.destination = home;
+        }
+        if (wandering == true)
+        {
+            Vector3 centerOfRadius = player.transform.position;
+
+            Vector3 target = centerOfRadius + (Vector3)(radius * UnityEngine.Random.insideUnitCircle);
+        }
+    }
+
+    //fov
     private IEnumerator FOVRoutine()
     {
         WaitForSeconds wait = new WaitForSeconds(0.2f);
@@ -31,6 +81,7 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
+    //fov
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);

@@ -3,14 +3,14 @@ using UnityEditor;
 
 using UnityEngine;
 
-[CustomEditor(typeof(FieldOfView))]
+[CustomEditor(typeof(EnemyAi))]
 
 public class NewBehaviourScript : Editor
 {
 
     private void OnSceneGUI()
     {
-        FieldOfView fov = (FieldOfView)target;
+        EnemyAi fov = (EnemyAi)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
 
@@ -20,6 +20,12 @@ public class NewBehaviourScript : Editor
         Handles.color = Color.yellow;
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle01 * fov.radius);
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle02 * fov.radius);
+
+        if (fov.canSeePlayer)
+        {
+            Handles.color = Color.green;
+            Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+        }
     }
 
     private Vector3 DirectionFromAngle(float eulerY, float angleInDegrees)
