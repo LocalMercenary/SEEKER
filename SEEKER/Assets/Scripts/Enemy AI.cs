@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TESTAI : MonoBehaviour
+public class EnemyAi : MonoBehaviour
 {
     [Header("FOV")]
     public float radius;
@@ -19,14 +19,14 @@ public class TESTAI : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
-    bool sendHome = true;
+    bool sendHome = false;
     Vector3 home;
     GameObject player;
     NavMeshAgent agent;
 
     [Header("Wandering")]
     [SerializeField]
-    bool wandering = true;
+    bool wander = true;
     public float playerRadius;
     private bool isWandering = false; // Prevents multiple wandering coroutines from running
 
@@ -46,20 +46,28 @@ public class TESTAI : MonoBehaviour
     {
         Vector3 dir = player.transform.position - transform.position;
 
+        if (!canSeePlayer && !sendHome && !wander && !isWandering)
+        {
+            wander = true;
+        }
+
         if (canSeePlayer)
         {
+            agent.speed = 13f;
             agent.destination = player.transform.position; // Chase player
-            wandering = false;
+            wander = false;
             isWandering = false; // Stop wandering
             StopCoroutine(WanderRoutine()); // Ensure wandering stops
         }
         else if (sendHome)
         {
+            agent.speed = 7f;
             agent.destination = home; // Return home when not seeing the player
         }
 
-        if (wandering && !isWandering)
+        if (wander && !isWandering)
         {
+            agent.speed = 7f;
             StartCoroutine(WanderRoutine()); // Start wandering if not already
         }
     }
@@ -68,19 +76,19 @@ public class TESTAI : MonoBehaviour
     {
         isWandering = true;
 
-        while (wandering && !canSeePlayer)
+        while (wander && !canSeePlayer)
         {
             Vector3 wanderPoint = GetRandomPointNearPlayer();
             agent.SetDestination(wanderPoint);
 
-            // Wait until the enemy reaches the destination
-            while (!agent.pathPending && agent.remainingDistance > agent.stoppingDistance)
-            {
-                yield return null;
-            }
+            // Wait until the path is calculated
+            yield return new WaitUntil(() => !agent.pathPending);
 
-            // Wait for a short time before choosing another point
-            yield return new WaitForSeconds(2f);
+            // Wait until the agent reaches the target
+            yield return new WaitUntil(() => agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending);
+
+            // Wait before picking a new point
+            yield return new WaitForSeconds(0.1f);
         }
 
         isWandering = false;
@@ -88,7 +96,9 @@ public class TESTAI : MonoBehaviour
 
     private Vector3 GetRandomPointNearPlayer()
     {
-        Vector3 randomPoint = player.transform.position + (Vector3)(playerRadius * UnityEngine.Random.insideUnitCircle);
+        // Generate random point in the X-Z plane instead of X-Y
+        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * playerRadius;
+        Vector3 randomPoint = new Vector3(randomCircle.x, 0, randomCircle.y) + player.transform.position;
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomPoint, out hit, playerRadius, NavMesh.AllAreas))
