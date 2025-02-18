@@ -9,9 +9,7 @@ public class RaycastScript : MonoBehaviour
     public bool hasCollectedItem3 = false;
     public bool hasCollectedItem4 = false;
 
-    public GameObject interactableObject; // Assign this in the Inspector
-    private bool canUseObject = true; // Prevents spamming activation
-    public float interactionCooldown = 2f; // Delay before it can be used again
+    public LayerMask ignoredLayers; // Set this in the inspector to ignore walls, etc.
 
     void Update()
     {
@@ -19,10 +17,12 @@ public class RaycastScript : MonoBehaviour
         {
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward, Color.green);
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10f, Color.green);
 
-            if (Physics.Raycast(ray, out hit, 10f)) // Raycast with 10f max distance
+            // Use bitwise NOT (~) to exclude specific layers and allow the ray to hit everything else
+            if (Physics.Raycast(ray, out hit, 10f, ~ignoredLayers, QueryTriggerInteraction.Collide))
             {
+                // Collectibles
                 if (hit.collider.CompareTag("Collectable1"))
                 {
                     hasCollectedItem1 = true;
@@ -43,33 +43,29 @@ public class RaycastScript : MonoBehaviour
                     hasCollectedItem4 = true;
                     hit.collider.gameObject.GetComponent<Animator>().SetTrigger("destroy");
                 }
-            }
 
-            // Check if the interactable object can be activated
-            if (canUseObject && (hasCollectedItem1 || hasCollectedItem2 || hasCollectedItem3 || hasCollectedItem4))
-            {
-                StartCoroutine(ActivateObject());
+                // Puzzle Objects (only activate if the corresponding collectible was obtained)
+                if (hit.collider.CompareTag("Puzzle1"))
+                {
+                    hasCollectedItem1 = false;
+                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                }
+                if (hit.collider.CompareTag("Puzzle2"))
+                {
+                    hasCollectedItem2 = false;
+                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                }
+                if (hit.collider.CompareTag("Puzzle3"))
+                {
+                    hasCollectedItem3 = false;
+                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                }
+                if (hit.collider.CompareTag("Puzzle4"))
+                {
+                    hasCollectedItem4 = false;
+                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                }
             }
         }
-    }
-
-    private IEnumerator ActivateObject()
-    {
-        canUseObject = false; // Disable interaction temporarily
-
-        if (interactableObject != null)
-        {
-            interactableObject.SetActive(true); // Enable the object
-            Animator anim = interactableObject.GetComponent<Animator>();
-
-            if (anim != null)
-            {
-                anim.SetTrigger("activate"); // Play animation
-            }
-        }
-
-        yield return new WaitForSeconds(interactionCooldown); // Wait before allowing another interaction
-        canUseObject = true; // Enable interaction again
     }
 }
-

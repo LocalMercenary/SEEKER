@@ -10,6 +10,10 @@ TagManager:
   - Collectable2
   - Collectable3
   - Collectable4
+  - Puzzle1
+  - Puzzle2
+  - Puzzle3
+  - Puzzle4
   layers:
   - Default
   - TransparentFX
@@ -19,8 +23,8 @@ TagManager:
   - UI
   - enemy
   - maze
-  - 
-  - 
+  - interactible
+  - ignore
   - 
   - 
   - 
