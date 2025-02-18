@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
+
+    private Animator anim;
+    private CharacterController controller;
+
     [Header("FOV")]
     public float radius;
     [Range(0, 360)]
@@ -32,6 +36,9 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+        controller = GetComponent<CharacterController>();
+
         // FOV setup
         playerRef = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(FOVRoutine());
@@ -70,6 +77,16 @@ public class EnemyAi : MonoBehaviour
             agent.speed = 7f;
             StartCoroutine(WanderRoutine()); // Start wandering if not already
         }
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            anim.SetInteger("moving", 1);
+        }
+        else
+        {
+            anim.SetInteger("moving", 0);
+        }
+
+
     }
 
     private IEnumerator WanderRoutine()
