@@ -15,57 +15,90 @@ public class RaycastScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E)) // Check if "E" is pressed
         {
+            Camera activeCamera = GetActiveCamera(); // Get the currently active camera
+            if (activeCamera == null) return; // If no active camera, exit
+
             RaycastHit hit;
-            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10f, Color.green);
+            Ray ray = new Ray(activeCamera.transform.position, activeCamera.transform.forward);
+            Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 10f, Color.green);
 
             // Use bitwise NOT (~) to exclude specific layers and allow the ray to hit everything else
             if (Physics.Raycast(ray, out hit, 10f, ~ignoredLayers, QueryTriggerInteraction.Collide))
             {
+                Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+
                 // Collectibles
                 if (hit.collider.CompareTag("Collectable1"))
                 {
                     hasCollectedItem1 = true;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("destroy");
+                    animator?.SetTrigger("destroy");
                 }
                 if (hit.collider.CompareTag("Collectable2"))
                 {
                     hasCollectedItem2 = true;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("destroy");
+                    animator?.SetTrigger("destroy");
                 }
                 if (hit.collider.CompareTag("Collectable3"))
                 {
                     hasCollectedItem3 = true;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("destroy");
+                    animator?.SetTrigger("destroy");
                 }
                 if (hit.collider.CompareTag("Collectable4"))
                 {
                     hasCollectedItem4 = true;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("destroy");
+                    animator?.SetTrigger("destroy");
                 }
 
-                // Puzzle Objects (only activate if the corresponding collectible was obtained)
+                // Puzzle Objects
                 if (hit.collider.CompareTag("Puzzle1"))
                 {
                     hasCollectedItem1 = false;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                    animator?.SetTrigger("up");
                 }
                 if (hit.collider.CompareTag("Puzzle2"))
                 {
                     hasCollectedItem2 = false;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                    animator?.SetTrigger("up");
                 }
                 if (hit.collider.CompareTag("Puzzle3"))
                 {
                     hasCollectedItem3 = false;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                    animator?.SetTrigger("up");
                 }
                 if (hit.collider.CompareTag("Puzzle4"))
                 {
                     hasCollectedItem4 = false;
-                    hit.collider.gameObject.GetComponent<Animator>().SetTrigger("up");
+                    animator?.SetTrigger("up");
+                }
+
+                // Hide Mechanic
+                if (hit.collider.CompareTag("Hide"))
+                {
+                    if (animator != null)
+                    {
+                        bool isOpen = animator.GetBool("Open");
+                        if (!animator.GetBool("playered"))
+                        {
+                            animator.SetBool("playered", true);
+                        }
+                        animator.SetBool("Open", !isOpen); // Toggle Open state
+                    }
                 }
             }
         }
+    }
+
+    // Function to find the currently active camera
+    private Camera GetActiveCamera()
+    {
+        Camera[] cameras = Camera.allCameras;
+        foreach (Camera cam in cameras)
+        {
+            if (cam.gameObject.activeInHierarchy)
+            {
+                return cam;
+            }
+        }
+        return null; // No active camera found
     }
 }

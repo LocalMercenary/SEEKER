@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
-
     private Animator anim;
     private CharacterController controller;
 
@@ -20,6 +19,8 @@ public class EnemyAi : MonoBehaviour
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
+    private Coroutine loseSightCoroutine; // Reference to sight loss coroutine
+    public float memoryDuration = 3f; // Time the enemy "remembers" the player
 
     [Header("Movement")]
     [SerializeField]
@@ -51,13 +52,6 @@ public class EnemyAi : MonoBehaviour
 
     void Update()
     {
-        Vector3 dir = player.transform.position - transform.position;
-
-        if (!canSeePlayer && !sendHome && !wander && !isWandering)
-        {
-            wander = true;
-        }
-
         if (canSeePlayer)
         {
             agent.speed = 13f;
@@ -72,21 +66,18 @@ public class EnemyAi : MonoBehaviour
             agent.destination = home; // Return home when not seeing the player
         }
 
+        if (!canSeePlayer && !sendHome && !wander && !isWandering)
+        {
+            wander = true;
+        }
+
         if (wander && !isWandering)
         {
             agent.speed = 7f;
             StartCoroutine(WanderRoutine()); // Start wandering if not already
         }
-        if (agent.velocity.magnitude > 0.1f)
-        {
-            anim.SetInteger("moving", 1);
-        }
-        else
-        {
-            anim.SetInteger("moving", 0);
-        }
 
-
+        anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);
     }
 
     private IEnumerator WanderRoutine()
@@ -153,11 +144,30 @@ public class EnemyAi : MonoBehaviour
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
                     canSeePlayer = true;
+
+                    // If we were about to lose sight, cancel the coroutine
+                    if (loseSightCoroutine != null)
+                    {
+                        StopCoroutine(loseSightCoroutine);
+                        loseSightCoroutine = null;
+                    }
                     return;
                 }
             }
         }
 
+        // Start memory timer only if the player was seen before
+        if (canSeePlayer && loseSightCoroutine == null)
+        {
+            loseSightCoroutine = StartCoroutine(LoseSightDelay());
+        }
+    }
+
+    private IEnumerator LoseSightDelay()
+    {
+        yield return new WaitForSeconds(memoryDuration);
         canSeePlayer = false;
+        loseSightCoroutine = null;
     }
 }
+
