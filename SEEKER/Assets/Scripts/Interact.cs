@@ -26,7 +26,6 @@ public class RaycastScript : MonoBehaviour
             Ray ray = new Ray(activeCamera.transform.position, activeCamera.transform.forward);
             Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 10f, Color.green);
 
-            // Use bitwise NOT (~) to exclude specific layers and allow the ray to hit everything else
             if (Physics.Raycast(ray, out hit, 10f, ~ignoredLayers, QueryTriggerInteraction.Collide))
             {
                 Animator animator = hit.collider.gameObject.GetComponent<Animator>();
@@ -90,7 +89,26 @@ public class RaycastScript : MonoBehaviour
                 }
             }
         }
+
+        // Check if 2 or more items are collected and spawn the enemy
+        CheckAndSpawnEnemy();
     }
+    void CheckAndSpawnEnemy()
+    {
+        int collectedCount = 0;
+
+        if (hasCollectedItem1) collectedCount++;
+        if (hasCollectedItem2) collectedCount++;
+        if (hasCollectedItem3) collectedCount++;
+        if (hasCollectedItem4) collectedCount++;
+
+        if (collectedCount >= 2 && enemy != null && !enemy.activeInHierarchy)
+        {
+            enemy.SetActive(true);
+            Debug.Log("Enemy Spawned!");
+        }
+    }
+
 
     // Function to find the currently active camera
     private Camera GetActiveCamera()

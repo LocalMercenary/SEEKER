@@ -114,7 +114,7 @@ public class AnimationEvents : MonoBehaviour
 
     private IEnumerator DelayedEnemyActivation()
     {
-        yield return new WaitForSeconds(20f); // Wait for 15 seconds
+        yield return new WaitForSeconds(20f); // Wait for 20 seconds
 
         if ((interact != null) && interact.enemy != null)
         {
