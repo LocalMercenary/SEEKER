@@ -54,7 +54,7 @@ public class EnemyAi : MonoBehaviour
     {
         if (canSeePlayer)
         {
-            agent.speed = 13f;
+            agent.speed = 15f;
             agent.destination = player.transform.position; // Chase player
             wander = false;
             isWandering = false; // Stop wandering

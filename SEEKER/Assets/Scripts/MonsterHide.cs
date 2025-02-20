@@ -36,18 +36,10 @@ public class MonsterHide : MonoBehaviour
 
             // Rotate 180 degrees to make it face away
             canvasRect.transform.Rotate(0f, 180f, 0f);
-
-
-
-
-
-
-
-
         }
     }
 
-    IEnumerator MoveImageRoutine(RectTransform image)
+    public IEnumerator MoveImageRoutine(RectTransform image)
     {
         while (true) // Loop to keep updating position & scale
         {

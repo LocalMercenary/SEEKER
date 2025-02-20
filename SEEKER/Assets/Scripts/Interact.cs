@@ -9,6 +9,10 @@ public class RaycastScript : MonoBehaviour
     public bool hasCollectedItem3 = false;
     public bool hasCollectedItem4 = false;
 
+    public GameObject player;
+    public GameObject enemy;
+
+
     public LayerMask ignoredLayers; // Set this in the inspector to ignore walls, etc.
 
     void Update()
