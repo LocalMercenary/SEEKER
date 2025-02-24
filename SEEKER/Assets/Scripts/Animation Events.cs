@@ -8,7 +8,7 @@ public class AnimationEvents : MonoBehaviour
     private RaycastScript interact;
     private Puzzle2 puzzle; // Reference to Puzzle2 script
     public List<GameObject> objectsToHide; // Assign other objects that need to be hidden
-
+    [Header("For lockers")]
     public float enemyRadius = 2f;
 
     void Start()

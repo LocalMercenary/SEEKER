@@ -53,25 +53,21 @@ public class RaycastScript : MonoBehaviour
                 }
 
                 // Puzzle Objects
-                if (hit.collider.CompareTag("Puzzle1"))
+                if (hit.collider.CompareTag("Puzzle1") && hasCollectedItem1)
                 {
-                    hasCollectedItem1 = false;
-                    animator?.SetTrigger("up");
+                    animator?.SetTrigger("rot");
                 }
-                if (hit.collider.CompareTag("Puzzle2"))
+                if (hit.collider.CompareTag("Puzzle2") && hasCollectedItem2)
                 {
-                    hasCollectedItem2 = false;
-                    animator?.SetTrigger("up");
+                    animator?.SetTrigger("rot");
                 }
-                if (hit.collider.CompareTag("Puzzle3"))
+                if (hit.collider.CompareTag("Puzzle3") && hasCollectedItem3)
                 {
-                    hasCollectedItem3 = false;
-                    animator?.SetTrigger("up");
+                    animator?.SetTrigger("rot");
                 }
-                if (hit.collider.CompareTag("Puzzle4"))
+                if (hit.collider.CompareTag("Puzzle4") && hasCollectedItem4)
                 {
-                    hasCollectedItem4 = false;
-                    animator?.SetTrigger("up");
+                    animator?.SetTrigger("rot");
                 }
 
                 // Hide Mechanic

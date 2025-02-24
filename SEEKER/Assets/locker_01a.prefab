@@ -22,7 +22,7 @@ GameObject:
   m_TagString: Hide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &540418273554057545
 Transform:
@@ -324,7 +324,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -375,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2745211308578714072}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0016274167, y: -0.0019097279, z: -0.0000031079073, w: 0.99999684}
+  m_LocalRotation: {x: 0.0016274195, y: -0, z: -0, w: 0.9999987}
   m_LocalPosition: {x: -0.31, y: 0.92903817, z: 0.29702544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35832,7 +35832,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 34
+  m_VersionIndex: 472
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
