@@ -64,7 +64,7 @@ public class EnemyAi : MonoBehaviour
             wander = false;
             isWandering = false; // Stop wandering
             StopCoroutine(WanderRoutine()); // Ensure wandering stops
-            Debug.Log("see");
+        
         }
         else if (sendHome)
         {
@@ -101,7 +101,7 @@ public class EnemyAi : MonoBehaviour
 
             // Wait before picking a new point
             yield return new WaitForSeconds(0.1f);
-            Debug.Log("wander");
+           
         }
 
         isWandering = false;
@@ -118,7 +118,7 @@ public class EnemyAi : MonoBehaviour
         {
             return hit.position; // Return a valid NavMesh point
         }
-        Debug.Log("point");
+       
         return transform.position; // Fallback to the current position
 
     }
@@ -158,7 +158,7 @@ public class EnemyAi : MonoBehaviour
                         StopCoroutine(loseSightCoroutine);
                         loseSightCoroutine = null;
                     }
-                    Debug.Log("fov");
+                    
                     return;
                 }
             }
@@ -176,7 +176,7 @@ public class EnemyAi : MonoBehaviour
         yield return new WaitForSeconds(memoryDuration);
         canSeePlayer = false;
         loseSightCoroutine = null;
-        Debug.Log("cant see");
+        
     }
     void OnEnable()
     {

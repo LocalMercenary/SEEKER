@@ -53,7 +53,6 @@ public class MonsterHide : MonoBehaviour
         {
             SetRandomPositionAndScale(image);
             yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); // Random delay for variation
-            Debug.Log("image");
         }
     }
 
