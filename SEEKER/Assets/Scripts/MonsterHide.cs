@@ -6,6 +6,7 @@ public class MonsterHide : MonoBehaviour
     public RectTransform[] images; // Assign multiple images in the Inspector
     public RectTransform canvasRect; // Assign the Canvas RectTransform in the Inspector
     public Transform player; // Assign the Player Transform in the Inspector
+    public bool imageRestart = true;
 
     void Start()
     {
@@ -15,17 +16,24 @@ public class MonsterHide : MonoBehaviour
             return;
         }
 
-        // Start a coroutine for each image to move independently
-        foreach (RectTransform image in images)
-        {
-            StartCoroutine(MoveImageRoutine(image));
-        }
+   
+        
     }
 
     void Update()
     {
         FacePlayer();
+
+        if (imageRestart)
+        {
+            foreach (RectTransform image in images)
+            {
+                StartCoroutine(MoveImageRoutine(image));
+            }
+            imageRestart = false;
+        }
     }
+
 
     void FacePlayer()
     {
@@ -45,6 +53,7 @@ public class MonsterHide : MonoBehaviour
         {
             SetRandomPositionAndScale(image);
             yield return new WaitForSeconds(Random.Range(0.1f, 0.3f)); // Random delay for variation
+            Debug.Log("image");
         }
     }
 
@@ -64,4 +73,9 @@ public class MonsterHide : MonoBehaviour
 
         image.anchoredPosition = new Vector2(randomX, randomY);
     }
+    void OnEnable()
+    {
+        imageRestart = true; // Ensure images restart movement when re-enabled
+    }
+
 }

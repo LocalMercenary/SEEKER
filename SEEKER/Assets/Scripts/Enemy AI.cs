@@ -34,6 +34,7 @@ public class EnemyAi : MonoBehaviour
     bool wander = true;
     public float playerRadius;
     private bool isWandering = false; // Prevents multiple wandering coroutines from running
+    public bool Restart = true;
 
     private void Start()
     {
@@ -42,7 +43,6 @@ public class EnemyAi : MonoBehaviour
 
         // FOV setup
         playerRef = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine(FOVRoutine());
 
         // Movement setup
         home = transform.position;
@@ -52,6 +52,11 @@ public class EnemyAi : MonoBehaviour
 
     void Update()
     {
+        if (Restart)
+        {
+            StartCoroutine(FOVRoutine()); // Restart FOV checking
+            Restart = false;
+        }
         if (canSeePlayer)
         {
             agent.speed = 15f;
@@ -59,22 +64,21 @@ public class EnemyAi : MonoBehaviour
             wander = false;
             isWandering = false; // Stop wandering
             StopCoroutine(WanderRoutine()); // Ensure wandering stops
+            Debug.Log("see");
         }
         else if (sendHome)
         {
             agent.speed = 7f;
             agent.destination = home; // Return home when not seeing the player
         }
-
         if (!canSeePlayer && !sendHome && !wander && !isWandering)
         {
             wander = true;
         }
-
         if (wander && !isWandering)
         {
             agent.speed = 7f;
-            StartCoroutine(WanderRoutine()); // Start wandering if not already
+            StartCoroutine(WanderRoutine()); // Restart wandering
         }
 
         anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);
@@ -97,6 +101,7 @@ public class EnemyAi : MonoBehaviour
 
             // Wait before picking a new point
             yield return new WaitForSeconds(0.1f);
+            Debug.Log("wander");
         }
 
         isWandering = false;
@@ -113,7 +118,9 @@ public class EnemyAi : MonoBehaviour
         {
             return hit.position; // Return a valid NavMesh point
         }
+        Debug.Log("point");
         return transform.position; // Fallback to the current position
+
     }
 
     // Field of View Routine
@@ -151,6 +158,7 @@ public class EnemyAi : MonoBehaviour
                         StopCoroutine(loseSightCoroutine);
                         loseSightCoroutine = null;
                     }
+                    Debug.Log("fov");
                     return;
                 }
             }
@@ -168,6 +176,20 @@ public class EnemyAi : MonoBehaviour
         yield return new WaitForSeconds(memoryDuration);
         canSeePlayer = false;
         loseSightCoroutine = null;
+        Debug.Log("cant see");
     }
+    void OnEnable()
+    {
+        Restart = true; // Restart FOV checking when re-enabled
+        wander = true; // Allow wandering again
+        isWandering = false; // Ensure wandering restarts properly
+
+        if (agent != null)
+        {
+            agent.enabled = true; // Ensure NavMeshAgent is enabled
+        }
+    }
+
+
 }
 

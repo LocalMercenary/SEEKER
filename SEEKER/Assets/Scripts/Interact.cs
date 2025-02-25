@@ -8,6 +8,7 @@ public class RaycastScript : MonoBehaviour
     public bool hasCollectedItem2 = false;
     public bool hasCollectedItem3 = false;
     public bool hasCollectedItem4 = false;
+    public bool hasSpawned = false;
 
     public GameObject player;
     public GameObject enemy;
@@ -85,9 +86,12 @@ public class RaycastScript : MonoBehaviour
                 }
             }
         }
+        if (!hasSpawned)
+        {
+            // Check if 2 or more items are collected and spawn the enemy
+            CheckAndSpawnEnemy();
+        } 
 
-        // Check if 2 or more items are collected and spawn the enemy
-        CheckAndSpawnEnemy();
     }
     void CheckAndSpawnEnemy()
     {
@@ -98,8 +102,9 @@ public class RaycastScript : MonoBehaviour
         if (hasCollectedItem3) collectedCount++;
         if (hasCollectedItem4) collectedCount++;
 
-        if (collectedCount >= 2 && enemy != null && !enemy.activeInHierarchy)
+        if (collectedCount >= 2 && enemy != null && !enemy.activeInHierarchy && !hasSpawned)
         {
+            hasSpawned = true;
             enemy.SetActive(true);
             Debug.Log("Enemy Spawned!");
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimationEvents : MonoBehaviour
 {
+    private EnemyAi enemyAi;
     private MonsterHide monsterHide;
     private RaycastScript interact;
     private Puzzle2 puzzle; // Reference to Puzzle2 script
@@ -108,13 +109,31 @@ public class AnimationEvents : MonoBehaviour
             }
         }
 
-        // Start the coroutine to delay enemy activation
-        StartCoroutine(DelayedEnemyActivation());
+        // Check if at least two items are collected
+        int collectedCount = 0;
+        if (interact != null)
+        {
+            if (interact.hasCollectedItem1) collectedCount++;
+            if (interact.hasCollectedItem2) collectedCount++;
+            if (interact.hasCollectedItem3) collectedCount++;
+            if (interact.hasCollectedItem4) collectedCount++;
+        }
+
+        // Start the coroutine only if two or more items have been collected
+        if (collectedCount >= 2)
+        {
+            StartCoroutine(DelayedEnemyActivation());
+        }
+        else
+        {
+            Debug.Log("Not enough items collected to respawn enemy.");
+        }
     }
+
 
     private IEnumerator DelayedEnemyActivation()
     {
-        yield return new WaitForSeconds(20f); // Wait for 20 seconds
+        yield return new WaitForSeconds(3f); // Wait for 20 seconds
 
         if ((interact != null) && interact.enemy != null)
         {
@@ -123,10 +142,11 @@ public class AnimationEvents : MonoBehaviour
             // Restart MoveImageRoutine in MonsterHide
             if (monsterHide != null)
             {
-                foreach (RectTransform image in monsterHide.images)
-                {
-                    monsterHide.StartCoroutine(monsterHide.MoveImageRoutine(image));
-                }
+                monsterHide.imageRestart = true;
+            }
+            if(enemyAi != null)
+            {
+                enemyAi.Restart = true;
             }
         }
     }
