@@ -32,9 +32,13 @@ public class EnemyAi : MonoBehaviour
     [Header("Wandering")]
     [SerializeField]
     bool wander = true;
+    private RaycastScript interact;
     public float playerRadius;
     private bool isWandering = false; // Prevents multiple wandering coroutines from running
     public bool Restart = true;
+    public int wanderingSpeed = 6;
+    public int chaseSpeed = 13;
+    public int homeSpeed = 5;
 
     private void Start()
     {
@@ -48,6 +52,11 @@ public class EnemyAi : MonoBehaviour
         home = transform.position;
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
+        interact = FindObjectOfType<RaycastScript>(); // Find the RaycastScript in the scene
+        if (interact == null)
+        {
+            Debug.LogError("RaycastScript not found in the scene!");
+        }
     }
 
     void Update()
@@ -59,7 +68,7 @@ public class EnemyAi : MonoBehaviour
         }
         if (canSeePlayer)
         {
-            agent.speed = 15f;
+            agent.speed = chaseSpeed;
             agent.destination = player.transform.position; // Chase player
             wander = false;
             isWandering = false; // Stop wandering
@@ -68,7 +77,7 @@ public class EnemyAi : MonoBehaviour
         }
         else if (sendHome)
         {
-            agent.speed = 7f;
+            agent.speed = homeSpeed;
             agent.destination = home; // Return home when not seeing the player
         }
         if (!canSeePlayer && !sendHome && !wander && !isWandering)
@@ -77,8 +86,26 @@ public class EnemyAi : MonoBehaviour
         }
         if (wander && !isWandering)
         {
-            agent.speed = 7f;
+            agent.speed = wanderingSpeed;
             StartCoroutine(WanderRoutine()); // Restart wandering
+        }
+        int collectedCount2 = 0;
+        if (interact != null)
+        {
+            if (interact.hasCollectedItem1) collectedCount2++;
+            if (interact.hasCollectedItem2) collectedCount2++;
+            if (interact.hasCollectedItem3) collectedCount2++;
+            if (interact.hasCollectedItem4) collectedCount2++;
+        }
+        if (collectedCount2 >= 3)
+        {
+            wanderingSpeed = 7;
+            chaseSpeed =  16;
+        }
+        if (collectedCount2 >= 4)
+        {
+            wanderingSpeed = 8;
+            chaseSpeed = 19;
         }
 
         anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);

@@ -15,6 +15,7 @@ public class Puzzle2 : MonoBehaviour
     public bool Rotated3 = false;
     public bool Rotated4 = false;
     public bool FullyRotated = false;
+    public bool EnemyDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +42,10 @@ public class Puzzle2 : MonoBehaviour
         {
             if (collider.CompareTag("Enemy") && FullyRotated)
             {
+                EnemyDead = true;
                 gameObject.GetComponent<Animator>().SetTrigger("Die");
                 Destroy(objectToDestroy);
+ 
             }
         }
     }

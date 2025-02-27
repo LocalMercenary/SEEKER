@@ -8,8 +8,9 @@ public class AnimationEvents : MonoBehaviour
     private MonsterHide monsterHide;
     private RaycastScript interact;
     private Puzzle2 puzzle; // Reference to Puzzle2 script
-    public List<GameObject> objectsToHide; // Assign other objects that need to be hidden
+    public Animator enemyAnimator;
     [Header("For lockers")]
+    public List<GameObject> objectsToHide; // Assign other objects that need to be hidden
     public float enemyRadius = 2f;
 
     void Start()
@@ -150,6 +151,14 @@ public class AnimationEvents : MonoBehaviour
             }
         }
     }
+    public void enemydie()
+    {
+        if (enemyAnimator != null)
+        {
+            enemyAnimator.SetInteger("Moving", 13); // Ensure Object B's Animator has a trigger named "PlayAnimation"
+        }
+    }
+
 
 
     public void rotated1() { if (puzzle != null) puzzle.Rotated1 = true; }
