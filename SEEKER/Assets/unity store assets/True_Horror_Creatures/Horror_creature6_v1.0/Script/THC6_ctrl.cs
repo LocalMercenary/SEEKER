@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class THC6_ctrl : MonoBehaviour {
 	
@@ -128,6 +129,10 @@ public class THC6_ctrl : MonoBehaviour {
 		moveDirection.y -= gravity * Time.deltaTime;
 		controller.Move (moveDirection * Time.deltaTime);
 		}
+    void OnEnable()
+    {
+        anim.SetInteger("moving", 13); //die/fall
+    }
 
 }
 

@@ -99,13 +99,13 @@ public class EnemyAi : MonoBehaviour
         }
         if (collectedCount2 >= 3)
         {
-            wanderingSpeed = 7;
-            chaseSpeed =  16;
+            wanderingSpeed = 6;
+            chaseSpeed =  14;
         }
         if (collectedCount2 >= 4)
         {
-            wanderingSpeed = 8;
-            chaseSpeed = 19;
+            wanderingSpeed = 7;
+            chaseSpeed = 16;
         }
 
         anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);

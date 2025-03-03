@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 public class Saving : MonoBehaviour
 {
-    string password = "1234567890";
+    string password = "casdrASJAFj23";
     CharacterController characterController;
     // Start is called before the first frame update
     void Start()
