@@ -44,14 +44,14 @@ public class Saving : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        /*if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             save();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             load();
-        }
+        }*/
     }
 
     public void save()
