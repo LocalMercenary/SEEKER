@@ -41,8 +41,9 @@ public class AnimationEvents : MonoBehaviour
 
     public void Destroy()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false); // Disable the object instead of destroying it
     }
+
 
     public void HideObjects()
     {

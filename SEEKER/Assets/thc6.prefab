@@ -613,7 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  radius: 5
+  maxRadius: 5
+  minRadius: 1
   rotationSpeed: 506.8
   moveSpeed: 152.32
 --- !u!1 &1113498388366053924
@@ -3697,6 +3698,7 @@ MonoBehaviour:
   - {fileID: 7623197986264045730}
   canvasRect: {fileID: 313126633814068659}
   player: {fileID: 0}
+  imageRestart: 1
 --- !u!114 &1806091514998236987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3719,10 +3721,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   canSeePlayer: 0
-  memoryDuration: 3
+  memoryDuration: 6
   sendHome: 0
   wander: 1
   playerRadius: 80
+  Restart: 1
+  wanderingSpeed: 6
+  chaseSpeed: 15
+  homeSpeed: 5
 --- !u!195 &1515340160392390295
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -24,17 +24,17 @@ public class EnemyAi : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
-    bool sendHome = false;
+    public bool sendHome = false;
     Vector3 home;
     GameObject player;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     [Header("Wandering")]
     [SerializeField]
-    bool wander = true;
+    public bool wander = true;
     private RaycastScript interact;
-    public float playerRadius;
-    private bool isWandering = false; // Prevents multiple wandering coroutines from running
+    public float playerRadius = 80;
+    public bool isWandering = false; // Prevents multiple wandering coroutines from running
     public bool Restart = true;
     public int wanderingSpeed = 6;
     public int chaseSpeed = 13;
@@ -101,11 +101,13 @@ public class EnemyAi : MonoBehaviour
         {
             wanderingSpeed = 6;
             chaseSpeed =  14;
+            playerRadius = 60;
         }
         if (collectedCount2 >= 4)
         {
             wanderingSpeed = 7;
             chaseSpeed = 16;
+            playerRadius = 40;
         }
 
         anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);
