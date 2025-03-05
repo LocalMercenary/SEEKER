@@ -9,25 +9,32 @@ public class RaycastScript : MonoBehaviour
     public bool hasCollectedItem3 = false;
     public bool hasCollectedItem4 = false;
     public bool hasSpawned = false;
+    public bool hasCollectedAll = false;
 
     public GameObject player;
     public GameObject enemy;
 
-
     public LayerMask ignoredLayers; // Set this in the inspector to ignore walls, etc.
+
+    private Canvas currentCanvas = null; // Store the currently active canvas
+
+    void Start()
+    {
+    }
 
     void Update()
     {
+        Camera activeCamera = GetActiveCamera(); // Get the currently active camera
+        if (activeCamera == null) return; // If no active camera, exit
+
+        // First Raycast - For the interactable mechanics
         if (Input.GetKeyDown(KeyCode.E)) // Check if "E" is pressed
         {
-            Camera activeCamera = GetActiveCamera(); // Get the currently active camera
-            if (activeCamera == null) return; // If no active camera, exit
-
             RaycastHit hit;
             Ray ray = new Ray(activeCamera.transform.position, activeCamera.transform.forward);
-            Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 10f, Color.green);
+            Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 5f, Color.green);
 
-            if (Physics.Raycast(ray, out hit, 10f, ~ignoredLayers, QueryTriggerInteraction.Collide))
+            if (Physics.Raycast(ray, out hit, 5f, ~ignoredLayers, QueryTriggerInteraction.Collide))
             {
                 Animator animator = hit.collider.gameObject.GetComponent<Animator>();
 
@@ -86,13 +93,53 @@ public class RaycastScript : MonoBehaviour
                 }
             }
         }
+
+        // Second Raycast - To enable canvases tagged "Interact"
+        EnableCanvasOnHit();
+
         if (!hasSpawned)
         {
             // Check if 2 or more items are collected and spawn the enemy
             CheckAndSpawnEnemy();
-        } 
-
+        }
     }
+
+    // This raycast enables canvases on objects that have a Canvas component and are tagged "Interact"
+    private void EnableCanvasOnHit()
+    {
+        Camera activeCamera = GetActiveCamera(); // Get the currently active camera
+        if (activeCamera == null) return; // If no active camera, exit
+
+        RaycastHit hit;
+        Ray ray = new Ray(activeCamera.transform.position, activeCamera.transform.forward);
+        Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 5f, Color.green);
+        Debug.Log("test");
+        if (Physics.Raycast(ray, out hit, 5f, ~ignoredLayers, QueryTriggerInteraction.Collide))
+        {
+            Debug.Log(hit);
+            Canvas canvas = hit.collider.GetComponentInChildren<Canvas>(); // Check if the object has a Canvas component
+            if (canvas != null && canvas.CompareTag("Interact")) // Only enable canvas if it has the "Interact" tag
+            {
+                Debug.Log("CanvasFound");
+                canvas.gameObject.SetActive(true); // Enable the canvas if it is tagged "Interact"
+            }
+        }
+        else
+        {
+            // If raycast does not hit anything, disable the currently active canvas
+            DisableCurrentCanvas();
+        }
+    }
+
+    void DisableCurrentCanvas()
+    {
+        if (currentCanvas != null)
+        {
+            currentCanvas.gameObject.SetActive(false); // Disable the currently active canvas
+            currentCanvas = null; // Reset the reference
+        }
+    }
+
     void CheckAndSpawnEnemy()
     {
         int collectedCount = 0;
@@ -109,7 +156,6 @@ public class RaycastScript : MonoBehaviour
             Debug.Log("Enemy Spawned!");
         }
     }
-
 
     // Function to find the currently active camera
     private Camera GetActiveCamera()

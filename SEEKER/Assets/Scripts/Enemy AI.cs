@@ -108,6 +108,7 @@ public class EnemyAi : MonoBehaviour
             wanderingSpeed = 7;
             chaseSpeed = 16;
             playerRadius = 40;
+            interact.hasCollectedAll = true;
         }
 
         anim.SetInteger("moving", agent.velocity.magnitude > 0.1f ? 1 : 0);

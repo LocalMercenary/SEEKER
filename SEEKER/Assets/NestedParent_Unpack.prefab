@@ -1110,6 +1110,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1584328429381595770, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_text
+      value: Rotate the pedistals
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610999093164087841, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_text
+      value: Kill the monster at the alter
+      objectReference: {fileID: 0}
     - target: {fileID: 3843930165352170311, guid: 59edff4695cbe774e98dcf3bf93eb631,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1287,9 +1297,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7365770892951905172, guid: 59edff4695cbe774e98dcf3bf93eb631,
         type: 3}
+      propertyPath: SplashText1
+      value: 
+      objectReference: {fileID: 4658784335308046168}
+    - target: {fileID: 7365770892951905172, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: SplashText2
+      value: 
+      objectReference: {fileID: 6479389922207554774}
+    - target: {fileID: 7365770892951905172, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: SplashText3
+      value: 
+      objectReference: {fileID: 4118117447709511727}
+    - target: {fileID: 7365770892951905172, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
       propertyPath: cameraController
       value: 
       objectReference: {fileID: 4992094284745627500}
+    - target: {fileID: 8187647266606301869, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_text
+      value: Find the 4 cursed objects
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4085644820992217551, guid: 59edff4695cbe774e98dcf3bf93eb631, type: 3}
     m_RemovedGameObjects: []
@@ -1314,3 +1344,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e885b439c800a214e9c8db3596fb50d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4118117447709511727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8963006140624105013, guid: 59edff4695cbe774e98dcf3bf93eb631,
+    type: 3}
+  m_PrefabInstance: {fileID: 4991258766337588762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4658784335308046168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 424412366016053570, guid: 59edff4695cbe774e98dcf3bf93eb631,
+    type: 3}
+  m_PrefabInstance: {fileID: 4991258766337588762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6479389922207554774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2067127666715550412, guid: 59edff4695cbe774e98dcf3bf93eb631,
+    type: 3}
+  m_PrefabInstance: {fileID: 4991258766337588762}
+  m_PrefabAsset: {fileID: 0}

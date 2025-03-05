@@ -14,12 +14,12 @@ public class Puzzle2 : MonoBehaviour
     public bool Rotated2 = false;
     public bool Rotated3 = false;
     public bool Rotated4 = false;
-    public bool FullyRotated = false;
+    public bool AllRotated = false;
     public bool EnemyDead = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -27,11 +27,12 @@ public class Puzzle2 : MonoBehaviour
     {
         if (Rotated1 &&  Rotated2 && Rotated3 && Rotated4)
         {
-            FullyRotated = true;
+            AllRotated = true;
+
         }
         else
         {
-            FullyRotated = false;
+            AllRotated = false;
         }
         CheckForEnemies();
     }
@@ -40,7 +41,7 @@ public class Puzzle2 : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, Radius);
         foreach (Collider collider in colliders)
         {
-            if (collider.CompareTag("Enemy") && FullyRotated)
+            if (collider.CompareTag("Enemy") && AllRotated)
             {
                 EnemyDead = true;
                 gameObject.GetComponent<Animator>().SetTrigger("Die");
@@ -49,9 +50,6 @@ public class Puzzle2 : MonoBehaviour
             }
         }
     }
-
-
-
     private void OnDrawGizmosSelected()
     {
         // Visualize the damage radius in the editor

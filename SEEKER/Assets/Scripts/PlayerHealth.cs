@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float damageRadius = 2f; // Radius around player for enemy damage
     public int damageAmount = 1; // Damage per hit
     public float damageInterval = 1f; // Time between damage ticks
-
+    public GameObject Lose;
     private float damageTimer = 0f;
 
     void Update()

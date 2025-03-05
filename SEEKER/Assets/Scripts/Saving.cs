@@ -92,7 +92,7 @@ public class Saving : MonoBehaviour
             myData.Rotated2 = puzzle2.Rotated2;
             myData.Rotated3 = puzzle2.Rotated3;
             myData.Rotated4 = puzzle2.Rotated4;
-            myData.FullyRotated = puzzle2.FullyRotated;
+            myData.FullyRotated = puzzle2.AllRotated;
             myData.EnemyDead = puzzle2.EnemyDead;
         }
 
@@ -163,7 +163,7 @@ public class Saving : MonoBehaviour
                 puzzle2.Rotated2 = myData.Rotated2;
                 puzzle2.Rotated3 = myData.Rotated3;
                 puzzle2.Rotated4 = myData.Rotated4;
-                puzzle2.FullyRotated = myData.FullyRotated;
+                puzzle2.AllRotated = myData.FullyRotated;
                 puzzle2.EnemyDead = myData.EnemyDead;
             }
 
