@@ -1596,6 +1596,26 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 53.7653
       objectReference: {fileID: 0}
+    - target: {fileID: 6738137642902085861, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 6738137642902085861, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6738137642902085861, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6738137642902085861, guid: 59edff4695cbe774e98dcf3bf93eb631,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6901417583658161760, guid: 59edff4695cbe774e98dcf3bf93eb631,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

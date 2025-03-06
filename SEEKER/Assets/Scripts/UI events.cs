@@ -30,7 +30,7 @@ public class UIEvents : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && pausePanel != null)
+        if (Input.GetKeyDown(KeyCode.Escape) && pausePanel != null)
         {
             TogglePauseMenu();
         }
