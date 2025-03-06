@@ -7,6 +7,7 @@ public class AnimationEvents : MonoBehaviour
     private EnemyAi enemyAi;
     private MonsterHide monsterHide;
     private RaycastScript interact;
+    private UIEvents UIEvents;
     private Puzzle2 puzzle; // Reference to Puzzle2 script
     public Animator enemyAnimator;
     [Header("For lockers")]
@@ -15,6 +16,7 @@ public class AnimationEvents : MonoBehaviour
 
     void Start()
     {
+        UIEvents = FindObjectOfType<UIEvents>();
         interact = FindObjectOfType<RaycastScript>(); // Find the RaycastScript in the scene
         if (interact == null)
         {
@@ -158,6 +160,10 @@ public class AnimationEvents : MonoBehaviour
         {
             enemyAnimator.SetInteger("Moving", 13); // Ensure Object B's Animator has a trigger named "PlayAnimation"
         }
+    }
+    public void Win()
+    {
+        UIEvents.win = true;
     }
 
 

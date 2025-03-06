@@ -13,11 +13,13 @@ public class UIEvents : MonoBehaviour
     public GameObject SplashText2;
     public GameObject SplashText3;
     public GameObject SplashText4;
+    public GameObject WinText;
     RaycastScript interact;
     Puzzle2 puzzle2;
     public bool text1;
     public bool text2;
     public bool text3;
+    public bool win;
     void Start()
     {
         pausePanel.SetActive(false); // Ensure the panel is hidden at start
@@ -65,6 +67,10 @@ public class UIEvents : MonoBehaviour
                 SplashText2.SetActive(false);
                 SplashText3.SetActive(true);
             }
+        }
+        if (win)
+        {
+            WinText.SetActive(true);
         }
     }
 
