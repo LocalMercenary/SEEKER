@@ -12,7 +12,7 @@ public class MonsterHide : MonoBehaviour
     {
         if (images.Length == 0 || canvasRect == null || player == null)
         {
-            Debug.LogError("Assign images, Canvas RectTransform, and Player Transform in the Inspector!");
+            Debug.Log("Assign images, Canvas RectTransform, and Player Transform in the Inspector!");
             return;
         }
 
