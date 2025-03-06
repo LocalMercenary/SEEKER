@@ -10,7 +10,18 @@ public class PlayerHealth : MonoBehaviour
     public float damageInterval = 1f; // Time between damage ticks
     public GameObject Lose;
     private float damageTimer = 0f;
+    CharacterController characterController;
 
+    private void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+
+
+
+        characterController.enabled = false;
+        transform.position = new Vector3(-23, 9, -24);
+        characterController.enabled = true;
+    }
     void Update()
     {
         damageTimer += Time.deltaTime;
