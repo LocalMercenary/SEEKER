@@ -12,6 +12,7 @@ public class UIEvents : MonoBehaviour
     public GameObject SplashText1;
     public GameObject SplashText2;
     public GameObject SplashText3;
+    public GameObject SplashText4;
     RaycastScript interact;
     Puzzle2 puzzle2;
     public bool text1;
@@ -94,6 +95,10 @@ public class UIEvents : MonoBehaviour
                 cameraController.SetActive(true); // Enable camera movement script
             }
         }
+    }
+    public void HowToPlay()
+    {
+        SplashText4.SetActive(true);
     }
     public void start()
     {

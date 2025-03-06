@@ -4077,6 +4077,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7852400297016097307}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fe84ed4855e3c945a7d9951bd4caca8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7448038631216388357}
   m_SourcePrefab: {fileID: 100100000, guid: 2fe84ed4855e3c945a7d9951bd4caca8, type: 3}
 --- !u!4 &1336802868875054013 stripped
 Transform:
@@ -4108,7 +4112,7 @@ MonoBehaviour:
   Rotated2: 0
   Rotated3: 0
   Rotated4: 0
-  FullyRotated: 0
+  AllRotated: 0
   EnemyDead: 0
 --- !u!95 &5248928400527187441
 Animator:
@@ -4207,3 +4211,23 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   objectsToHide: []
   enemyRadius: 0
+--- !u!114 &7448038631216388357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857338528127848711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e885b439c800a214e9c8db3596fb50d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
+  cameraController: {fileID: 0}
+  SplashText1: {fileID: 0}
+  SplashText2: {fileID: 0}
+  SplashText3: {fileID: 0}
+  text1: 0
+  text2: 0
+  text3: 0

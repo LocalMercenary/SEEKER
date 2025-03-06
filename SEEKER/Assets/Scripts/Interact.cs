@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RaycastScript : MonoBehaviour
@@ -11,6 +12,7 @@ public class RaycastScript : MonoBehaviour
     public bool hasSpawned = false;
     public bool hasCollectedAll = false;
 
+
     public GameObject player;
     public GameObject enemy;
 
@@ -20,6 +22,7 @@ public class RaycastScript : MonoBehaviour
 
     void Start()
     {
+
     }
 
     void Update()
@@ -94,8 +97,6 @@ public class RaycastScript : MonoBehaviour
             }
         }
 
-        // Second Raycast - To enable canvases tagged "Interact"
-        EnableCanvasOnHit();
 
         if (!hasSpawned)
         {
@@ -104,41 +105,6 @@ public class RaycastScript : MonoBehaviour
         }
     }
 
-    // This raycast enables canvases on objects that have a Canvas component and are tagged "Interact"
-    private void EnableCanvasOnHit()
-    {
-        Camera activeCamera = GetActiveCamera(); // Get the currently active camera
-        if (activeCamera == null) return; // If no active camera, exit
-
-        RaycastHit hit;
-        Ray ray = new Ray(activeCamera.transform.position, activeCamera.transform.forward);
-        Debug.DrawRay(activeCamera.transform.position, activeCamera.transform.forward * 5f, Color.green);
-        Debug.Log("test");
-        if (Physics.Raycast(ray, out hit, 5f, ~ignoredLayers, QueryTriggerInteraction.Collide))
-        {
-            Debug.Log(hit);
-            Canvas canvas = hit.collider.GetComponentInChildren<Canvas>(); // Check if the object has a Canvas component
-            if (canvas != null && canvas.CompareTag("Interact")) // Only enable canvas if it has the "Interact" tag
-            {
-                Debug.Log("CanvasFound");
-                canvas.gameObject.SetActive(true); // Enable the canvas if it is tagged "Interact"
-            }
-        }
-        else
-        {
-            // If raycast does not hit anything, disable the currently active canvas
-            DisableCurrentCanvas();
-        }
-    }
-
-    void DisableCurrentCanvas()
-    {
-        if (currentCanvas != null)
-        {
-            currentCanvas.gameObject.SetActive(false); // Disable the currently active canvas
-            currentCanvas = null; // Reset the reference
-        }
-    }
 
     void CheckAndSpawnEnemy()
     {
