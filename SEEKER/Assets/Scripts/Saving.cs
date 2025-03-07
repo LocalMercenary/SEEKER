@@ -117,7 +117,7 @@ public class Saving : MonoBehaviour
 
         // Encrypt and save
         string myDataString = JsonUtility.ToJson(myData);
-        myDataString = EncryptDecryptData(myDataString);
+        //myDataString = EncryptDecryptData(myDataString);
         string file = Application.persistentDataPath + "/" + gameObject.name + ".json";
         File.WriteAllText(file, myDataString);
     }
@@ -128,7 +128,7 @@ public class Saving : MonoBehaviour
         if (File.Exists(file))
         {
             string jsonData = File.ReadAllText(file);
-            jsonData = EncryptDecryptData(jsonData);
+            //jsonData = EncryptDecryptData(jsonData);
             SaveData myData = JsonUtility.FromJson<SaveData>(jsonData);
 
             // Load player position

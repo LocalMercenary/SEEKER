@@ -414,7 +414,6 @@ GameObject:
   - component: {fileID: 4376939189071998055}
   - component: {fileID: 7365770892951905172}
   - component: {fileID: 1265826704177687359}
-  - component: {fileID: 4085644820992217551}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -523,6 +522,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 1196674796161370074}
   cameraController: {fileID: 0}
+  SplashText1: {fileID: 0}
+  SplashText2: {fileID: 0}
+  SplashText3: {fileID: 0}
+  SplashText4: {fileID: 0}
+  WinText: {fileID: 0}
+  text1: 0
+  text2: 0
+  text3: 0
+  win: 0
 --- !u!114 &1265826704177687359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,27 +546,6 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   objectsToHide: []
   enemyRadius: 2
---- !u!114 &4085644820992217551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855086702346522168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9759cd5871f394b4db4852d15d62452f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  object1: {fileID: 0}
-  object2: {fileID: 0}
-  object3: {fileID: 0}
-  object4: {fileID: 0}
-  animator1: {fileID: 0}
-  animator2: {fileID: 0}
-  animator3: {fileID: 0}
-  animator4: {fileID: 0}
-  animator5: {fileID: 0}
 --- !u!1 &1196674796161370074
 GameObject:
   m_ObjectHideFlags: 0
